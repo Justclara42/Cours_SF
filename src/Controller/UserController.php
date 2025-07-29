@@ -7,7 +7,11 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Entity\User;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
+
+//use App\Entity\User;
 
 class UserController extends AbstractController
 {
@@ -24,6 +28,13 @@ class UserController extends AbstractController
     #[Route('/user/login')]
     public function login(): Response
     {
-        return $this->render('user/login.html.twig');
+//        $form = $this->createFormBuilder()
+//            ->add('username', TextType::class)
+//            ->add('password', TextType::class)
+//            ->getForm();
+
+        return $this->render('user/login.html.twig', [
+            //'form' => $form->createView(),
+        ]);
     }
 }

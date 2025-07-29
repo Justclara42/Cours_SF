@@ -9,10 +9,12 @@
         {% endblock %}
 
         {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
+    <body class="bg-gray-100 text-gray-900 font-sans antialiased">
+
         {% block header %}
             {% include 'partials/header.html.twig' %}
         {% endblock %}
