@@ -1,0 +1,24 @@
+    <div class="flex justify-between items-center px-4 py-3">
+        <div class="text-sm text-slate-500">
+            Showing <b>{{ currentPage }}</b> of <b>{{ maxPage }}</b> pages
+        </div>
+
+        <ul class="flex space-x-1 justify-center m-2">
+        {% if currentPage > 1 %}
+            <li class="pagination-item">
+                <a href="{{ path(path, {page: currentPage - 1}) }}" class="w-18 h-12 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold p-1 m-1 rounded-md transition-colors duration-200"> &lt; Previous </a>
+            </li>
+        {% endif %}
+        {% for page in 1..maxPage %}
+            <li class="pagination-item {{ page == currentPage ? 'text-white bg-red' : '' }}">
+                <a href="{{ path(path, {page: page}) }}" class="w-18 h-12 {{ page == currentPage ? 'text-red-600 bg-white' : 'bg-red-600 hover:bg-red-700 text-white' }}bg-red-600 hover:bg-red-700 text-white text-xs font-semibold p-1 m-1 rounded-md transition-colors duration-200">{{ page }}</a>
+            </li>
+        {% endfor %}
+
+        {% if currentPage < maxPage %}
+            <li class="pagination-item">
+                <a href="{{ path(path, {page: currentPage + 1}) }}" class="w-18 h-12 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold p-1 m-1 rounded-md transition-colors duration-200"> Next &gt; </a>
+            </li>
+        {% endif %}
+    </ul>
+</div>

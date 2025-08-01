@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ClientController!{% endblock %}
+
+{% block body %}
+    <div class="bg-gradient-to-r from-red-800 to-red-400 py-12 px-4">
+        <div class="max-w-screen-xl mx-auto">
+            <div class="max-w-3xl mx-auto mb-16 text-center">
+                <h2 class="text-white text-3xl lg:text-4xl font-bold text-center mb-4 leading-relaxed">Tagada <i>Edit Client</i></h2>
+            </div>
+            <div class="bg-red-300 p-6 sm:p-8 rounded-2xl border border-red-600 shadow-sm">
+                <h1 class="text-red-900 text-center text-3xl font-semibold mb-6">Clients</h1>
+                <form method="post" action="{{ path('app_client_update', { id:client.id }) }}" class="space-y-6">
+                    <input type="hidden" name="id" value="{{ client.id }}" />
+                    <div>
+                        <label class="text-red-900 text-sm font-medium mb-2 block">Company Name</label>
+                        <input name="companyName" type="text" required class="w-full text-slate-900 bg-[#e8f0fe] text-sm border border-slate-300 px-4 py-3 rounded-md outline-blue-600" value="{{ client.companyName }}" />
+                    </div>
+                    <div>
+                        <label class="text-red-900 text-sm font-medium mb-2 block">Contact Name</label>
+                        <input name="contactName" type="text" required class="w-full text-slate-900 bg-[#e8f0fe] text-sm border border-slate-300 px-4 py-3 rounded-md outline-blue-600" value="{{ client.contactName }}" />
+                    </div>
+                    <div>
+                        <label class="text-red-900 text-sm font-medium mb-2 block">Email</label>
+                        <input name="email" type="email" required class="w-full text-slate-900 bg-[#e8f0fe] text-sm border border-slate-300 px-4 py-3 rounded-md outline-blue-600" value="{{ client.email }}" />
+                    </div>
+                    <div>
+                        <label class="text-red-900 text-sm font-medium mb-2 block">Phone</label>
+                        <input name="phone" type="tel" required class="w-full text-slate-900 bg-[#e8f0fe] text-sm border border-slate-300 px-4 py-3 rounded-md outline-blue-600" value="{{ client.phone }}" />
+                    </div>
+                    <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-md transition-colors duration-200">Edit Client</button>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

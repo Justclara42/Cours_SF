@@ -8,10 +8,15 @@
             <ul class="flex space-x-4">
                 <li><a href="{{ path('app_home_index') }}" class="text-gray-300 hover:text-white">Home</a></li>
                 <li><a href="{{ path('app_user_index') }}" class="text-gray-300 hover:text-white">Users</a></li>
+                <li><a href="{{ path('app_client') }}" class="text-gray-300 hover:text-white">Clients</a></li>
                 <li><a href="{{ path('app_user_login') }}" class="text-gray-300 hover:text-white">Login</a></li>
                 <li><a href="{{ path('app_user_register') }}" class="text-gray-300 hover:text-white">Register</a></li>
                 <li><a href="{{ path('app_home_index') }}" class="text-gray-300 hover:text-white">Contact</a></li>
             </ul>
+            <form action="{{ path('app_client_search') }}" class="flex items-center space-x-2">
+                <input type="text" name="search" placeholder="Search clients..." class="px-4 py-2 rounded-md bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500" required>
+                <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md transition-colors duration-200">Search</button>
+            </form>
         </div>
     </nav>
 </header>
