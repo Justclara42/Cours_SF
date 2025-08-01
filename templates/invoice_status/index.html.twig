@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello InvoiceStatusController!{% endblock %}
+
+{% block body %}
+<div class="bg-gradient-to-r from-red-800 to-red-400 py-12 px-4">
+    <div class="max-w-screen-xl mx-auto">
+        <div class="max-w-3xl mx-auto mb-16 text-center">
+            <h2 class="text-white text-3xl lg:text-4xl font-bold text-center mb-4 leading-relaxed">Tagada <i>Invoice Status</i></h2>
+        </div>
+        <div class="mb-2 text-end">
+            <a href="{{ path('app_invoice_status_create') }}" class="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-md transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 inline-block mr-2">
+                    <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                </svg>
+                Add Status
+            </a>
+        </div>
+
+        {% if status is empty %}
+
+        <div class="bg-red-300 p-6 sm:p-8 rounded-2xl border border-red-600 shadow-sm">
+            <h1 class="text-red-900 text-center text-3xl font-semibold mb-6">No Invoice Status Found</h1>
+        </div>
+        {% else %}
+        <div class="bg-red-300 p-6 sm:p-8 rounded-2xl border border-red-600 shadow-sm">
+            <h1 class="text-red-900 text-center text-3xl font-semibold mb-6">Invoice Status</h1>
+            <table class="min-w-full divide-y divide-gray-200 rounded">
+                <thead class="bg-red-600 text-white">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Status Name</th>
+                        <th class="px-6 py-3 text-end text-xs font-medium uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for item in status %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-end space-x-2 flex justify-end items-end">
+{#                            <a href="{{ path('app_invoice_status_show', { id: item.id }) }}" class="flex px-6 py-2.5 rounded-lg cursor-pointer text-white text-xs font-small border-0 outline-none bg-green-700 hover:bg-green-800 active:bg-green-700">#}
+{#                                View#}
+{#                            </a>#}
+{#                            <a href="{{ path('app_invoice_status_edit', { id: item.id }) }}" class="flex px-6 py-2.5 rounded-lg cursor-pointer text-white text-xs font-small border-0 outline-none bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-400">#}
+{#                                Edit#}
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

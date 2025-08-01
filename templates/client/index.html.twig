@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ClientController!{% endblock %}
+
+{% block body %}
+<div class="bg-gradient-to-r from-red-800 to-red-400 py-12 px-4">
+    <div class="max-w-screen-xxl mx-auto">
+        <div class="max-w-3xl mx-auto mb-4 text-center">
+            {% if companyName is defined %}
+                <h1 class="text-white text-xl lg:text-2xl font-bold text-center leading-relaxed">Tagada Results for: <i>{{ companyName }}</i></h1>
+            {% else %}
+                <h1 class="text-white text-xl lg:text-2xl font-bold text-center">Tagada <i>Clients List</i></h1>
+            {% endif %}
+        </div>
+        <div class="mb-2 text-end">
+            <a href="{{ path('app_client_create') }}" class="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-md transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 inline-block mr-2">
+                    <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                </svg>
+                Add Client
+            </a>
+        </div>
+
+        <div class="bg-red-300 p-6 sm:p-8 rounded-2xl border border-red-600 shadow-sm">
+            <form action="{{ path('app_client_search') }}" method="get" class="mb-2 flex ">
+                <input type="text" name="search" placeholder="Search by company name..." class="w-full text-slate-900 bg-[#e8f0fe] text-sm border border-slate-300 px-4 py-3 rounded-md outline-blue-600 mb-4">
+                <button type="submit" class="w-18 h-12 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold p-1 mx-2 rounded-md transition-colors duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 inline-block">
+                        <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </form>
+            {% if data.client is empty %}
+                <p class="text-red-900 text-center">No clients found.</p>
+            {% else %}
+                <table class="min-w-full divide-y divide-gray-200 rounded">
+                    <thead class="bg-red-600 text-white">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Company Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Contact Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Email</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Phone</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Invoces</th>
+                            <th class="px-6 py-3 text-end text-xs font-medium uppercase tracking-wider ">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for client in data.client %}
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ client.companyName }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ client.contactName }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ client.email }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ client.phone }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <a href="{{ path('app_client_show_invoices', { id: client.id }) }}" class="text-blue-600 hover:text-blue-800">
+                                        View Invoices
+                                    </a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-end space-x-2 flex justify-end items-end">
+                                    <a href="{{ path('app_client_show', { id: client.id }) }}" class="flex px-6 py-2.5 rounded-lg cursor-pointer text-white text-xs font-small border-0 outline-0 outline-none bg-green-700 hover:bg-green-800 active:bg-green-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+                                            <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                                            <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z" clip-rule="evenodd" />
+                                        </svg>
+                                    </a>
+                                    <a href="{{ path('app_client_edit', { id: client.id }) }}" class="flex px-6 py-2.5 rounded-lg cursor-pointer text-white text-xs font-small border-0 outline-0 outline-none bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-400">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+                                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                            <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                        </svg>
+                                    </a>
+                                    <a href="" onclick="confirmDelete{{ client.id }}()" class="flex px-6 py-2.5 rounded-lg cursor-pointer text-white text-xs font-small border-0 outline-0 outline-none bg-red-700 hover:bg-red-800 active:bg-red-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+                                            <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" clip-rule="evenodd" />
+                                        </svg>
+                                    </a>
+                                    <script>
+                                        function confirmDelete{{ client.id }}() {
+                                            if (confirm("Êtes-vous sûr de vouloir supprimer le client {{ client.companyName }} ? Cette action est irréversible.")) {
+                                                window.location.href = "{{ path('app_client_delete', { id: client.id }) }}";
+                                            }
+                                        }
+                                    </script>
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% if data.pages > 1 %}
+                    {{ include('partials/pagination.html.twig', {
+                        currentPage: data.current,
+                        maxPage: data.pages,
+                        path: 'app_client'
+                    }) }}
+                {% endif %}
+
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
